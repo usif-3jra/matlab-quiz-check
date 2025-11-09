@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MATLAB Quiz – State-Space Systems</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen font-sans">
+
+  <div class="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
+    
+    <!-- Logo -->
+    <div class="flex justify-center mb-4">
+      <img src="https://usif-3jra.github.io/matlab-quiz-check/logo.png" alt="BAU Logo" class="h-20 w-auto">
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-2xl font-bold text-center mb-2 text-blue-700">MATLAB Quiz Portal</h1>
+    <p class="text-center text-gray-600 mb-6">
+      Please enter your student ID to access your personalized MATLAB file.
+    </p>
+
+    <!-- Input Section -->
+    <div id="inputSection" class="flex flex-col items-center">
+      <input id="studentID" type="text" placeholder="Enter your Student ID"
+             class="border border-gray-300 rounded-md p-2 w-full mb-4 focus:ring-2 focus:ring-blue-400 outline-none">
+      <button onclick="checkID()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-md">
+        Apply
+      </button>
+      <p id="errorMsg" class="text-red-500 mt-3 hidden">Invalid ID. Please try again.</p>
+    </div>
+
+    <!-- Confirmation Section -->
+    <div id="confirmSection" class="hidden text-center">
+      <p class="text-gray-700 text-lg mb-3">Hello, <span id="studentName" class="font-bold"></span>.</p>
+      <p class="text-gray-700 mb-4">Please confirm that your ID <span id="confirmID" class="font-mono bg-gray-100 px-2 py-1 rounded"></span> is correct.</p>
+      <button onclick="confirmStudent()" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-md">
+        Confirm
+      </button>
+    </div>
+
+    <!-- Download Section -->
+    <div id="downloadSection" class="hidden text-center">
+      <p class="text-gray-700 text-lg mb-3">✅ ID confirmed successfully!</p>
+      <p class="mb-2">You have been assigned <strong>Version <span id="studentVersion"></span></strong>.</p>
+      <a href="https://usif-3jra.github.io/matlab-quiz-check/Quiz.docx"
+         target="_blank"
+         class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-md inline-block mt-3">
+         📥 Download MATLAB Quiz File
+      </a>
+      <p class="text-gray-600 mt-3 text-sm">Please identify and correct the 10 mistakes in the MATLAB file. Each correction is worth 1 grade.</p>
+
+      <hr class="my-5">
+
+      <p class="text-gray-700 mb-2">When finished, upload your corrected script using the link below:</p>
+      <a href="https://baudom-my.sharepoint.com/:f:/g/personal/yousef_ajrah_bau_edu_lb/EkZzQtD5h4lNqbgwPhlJzFMBLRPnBcSsFRJKGS-TetJ1GQ"
+         target="_blank"
+         class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-6 rounded-md inline-block">
+         ⬆️ Upload Corrected File
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    const students = [
+      {id: "202402033", name: "Khaled Ahmed Abdulbaki", version: 1},
+      {id: "202401472", name: "Mahmoud Ahmad Abou Arkoub", version: 2},
+      {id: "202401250", name: "Mousa Mahmoud Al Madad", version: 3},
+      {id: "202402217", name: "Mohammad Ramadan Alkassem", version: 4},
+      {id: "202301687", name: "Zainab Hassan Bajouk", version: 5},
+      {id: "202303772", name: "Hassan Ali Ezzeddine", version: 6},
+      {id: "202300218", name: "Salem Raef Fakih", version: 7},
+      {id: "202304051", name: "Ameen Riad Hajar", version: 8},
+      {id: "202301436", name: "Mohammad Riad Hallak", version: 9},
+      {id: "202401341", name: "Yousif Mostafa Ismail", version: 10},
+      {id: "202305024", name: "Mohammad Nasser Itani", version: 11},
+      {id: "202203843", name: "Ghazi Mohamad Jaafar", version: 12},
+      {id: "202403039", name: "Mohammad Albaker Zoulfikar Rammal", version: 13},
+      {id: "202401277", name: "Mohammad Jamal Shehade", version: 14},
+      {id: "202001732", name: "Mohamad Hussein Haymour", version: 15}
+    ];
+
+    let selectedStudent = null;
+
+    function checkID() {
+      const inputID = document.getElementById('studentID').value.trim();
+      const student = students.find(s => s.id === inputID);
+      if (student) {
+        selectedStudent = student;
+        document.getElementById('studentName').textContent = student.name;
+        document.getElementById('confirmID').textContent = student.id;
+        document.getElementById('inputSection').classList.add('hidden');
+        document.getElementById('confirmSection').classList.remove('hidden');
+        document.getElementById('errorMsg').classList.add('hidden');
+      } else {
+        document.getElementById('errorMsg').classList.remove('hidden');
+      }
+    }
+
+    function confirmStudent() {
+      document.getElementById('confirmSection').classList.add('hidden');
+      document.getElementById('downloadSection').classList.remove('hidden');
+      document.getElementById('studentVersion').textContent = selectedStudent.version;
+    }
+  </script>
+
+</body>
+</html>
